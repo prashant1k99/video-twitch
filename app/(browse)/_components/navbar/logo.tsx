@@ -21,10 +21,5 @@ export const Logo = () => {
 				</div>
 			</div>
 		</Link>
-		// <div className="flex items-center space-y-4 select-none">
-		// 	<div className="bg-white rounded-full p-1">
-		// 		<Image src="/spooky.svg" alt="GameHub Logo" width={32} height={32} />
-		// 	</div>
-		// </div>
 	)
 }
