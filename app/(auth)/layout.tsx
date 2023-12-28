@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 
+import { Logo } from './_components/logo'
+
 export const metadata: Metadata = {
-	title: 'Auth | Video Twitch',
+	title: 'Auth | GameHub',
 	description: 'Twitch clone for streaming video games',
 }
 
@@ -11,7 +13,8 @@ export default function AuthLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<div className="flex w-full h-full justify-center items-center">
+		<div className="flex flex-col w-full h-full justify-center items-center space-y-6">
+			<Logo />
 			{children}
 		</div>
 	)
