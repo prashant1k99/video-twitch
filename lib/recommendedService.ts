@@ -29,6 +29,15 @@ export const getRecommended = async (page = 1, pageSize = 10) => {
 								},
 							},
 						},
+						{
+							NOT: {
+								blocked: {
+									some: {
+										blockeeId: userId,
+									},
+								},
+							},
+						},
 					],
 				},
 				take: pageSize,

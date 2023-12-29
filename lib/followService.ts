@@ -10,6 +10,13 @@ export const getFollowedUsers = async (page = 1, pageSize = 10) => {
 		const followedUsers = await db.follow.findMany({
 			where: {
 				followerId: self?.id,
+				followee: {
+					blocked: {
+						none: {
+							blockeeId: self?.id,
+						},
+					},
+				},
 			},
 			include: {
 				followee: true,
@@ -37,10 +44,12 @@ export const isFollowingUser = async (id: string) => {
 
 		if (!otherUser) throw new Error('User not found')
 
-		const following = await db.follow.findFirst({
+		const following = await db.follow.findUnique({
 			where: {
-				followerId: self.id,
-				followeeId: otherUser.id,
+				followerId_followeeId: {
+					followerId: self.id,
+					followeeId: otherUser.id,
+				},
 			},
 		})
 
@@ -63,10 +72,12 @@ export const followUser = async (id: string) => {
 
 	if (!otherUser) throw new Error('User not found')
 
-	const following = await db.follow.findFirst({
+	const following = await db.follow.findUnique({
 		where: {
-			followerId: self.id,
-			followeeId: otherUser.id,
+			followerId_followeeId: {
+				followerId: self.id,
+				followeeId: otherUser.id,
+			},
 		},
 	})
 
@@ -99,10 +110,12 @@ export const unfollowUser = async (id: string) => {
 
 	if (!otherUser) throw new Error('User not found')
 
-	const isFollowing = await db.follow.findFirst({
+	const isFollowing = await db.follow.findUnique({
 		where: {
-			followerId: self.id,
-			followeeId: otherUser.id,
+			followerId_followeeId: {
+				followerId: self.id,
+				followeeId: otherUser.id,
+			},
 		},
 	})
 
