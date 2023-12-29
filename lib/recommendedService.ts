@@ -2,8 +2,6 @@ import { db } from '@/lib/db'
 import { getSelf } from '@/lib/authService'
 
 export const getRecommended = async () => {
-	await new Promise((resolve) => setTimeout(resolve, 5000))
-
 	const self = await getSelf()
 
 	const users = self
