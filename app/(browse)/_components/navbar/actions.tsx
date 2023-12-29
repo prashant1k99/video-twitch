@@ -25,7 +25,7 @@ export const Actions = async () => {
 				</div>
 			) : (
 				<SignInButton>
-					<Button size="sm" variant="priamry">
+					<Button size="sm" variant="primary">
 						Login
 					</Button>
 				</SignInButton>

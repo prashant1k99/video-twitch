@@ -2,22 +2,30 @@ import { db } from '@/lib/db'
 import { getSelf } from '@/lib/authService'
 
 export const getRecommended = async () => {
-	const self = await getSelf()
+	let userId: string | null = null
+	try {
+		const self = await getSelf()
+		userId = self?.id as string
+	} catch (err) {
+		userId = null
+	}
 
-	const users = self
-		? await db.user.findMany({
+	const users = userId
+		? // Find all users except the current user
+		  await db.user.findMany({
 				where: {
 					id: {
-						not: self.id,
+						not: userId,
 					},
 				},
 				take: 10, // Limit the result to 10
 		  })
-		: await db.user.findMany({
+		: // Find all users
+		  await db.user.findMany({
 				orderBy: {
 					createdAt: 'desc',
 				},
-				take: 10, // Limit the result to 10
+				take: 10,
 		  })
 
 	return users
