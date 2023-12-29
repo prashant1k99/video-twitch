@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { User } from '@prisma/client'
-import { onFollow } from '@/actions/follow'
+import { onFollow, onUnfollow } from '@/actions/follow'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 
@@ -14,11 +14,17 @@ interface ActionsProps {
 export const Actions = ({ user, isFollowing }: ActionsProps) => {
 	const [isPending, startTransition] = useTransition()
 
-	const handleFollowClick = () => {
+	const action = isFollowing ? onUnfollow : onFollow
+
+	const handleFollowActions = () => {
 		startTransition(() => {
-			onFollow(user.id)
+			action(user.id)
 				.then((data) => {
-					toast.error(`You are now following ${data?.followee.username}`)
+					toast.info(
+						`You are ${isFollowing ? 'no longer' : 'now'} following ${
+							data?.followee.username
+						}`
+					)
 				})
 				.catch((error) => {
 					toast.error(error.message)
@@ -28,10 +34,10 @@ export const Actions = ({ user, isFollowing }: ActionsProps) => {
 
 	return (
 		<Button
-			disabled={isFollowing || isPending}
-			onClick={handleFollowClick}
+			disabled={isPending}
+			onClick={handleFollowActions}
 			variant="primary">
-			Follow
+			{isFollowing ? 'Unfollow' : 'Follow'}
 		</Button>
 	)
 }

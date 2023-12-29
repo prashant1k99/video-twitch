@@ -76,18 +76,22 @@ export const unfollowUser = async (id: string) => {
 
 	if (!otherUser) throw new Error('User not found')
 
-	const following = await db.follow.findFirst({
+	const isFollowing = await db.follow.findFirst({
 		where: {
 			followerId: self.id,
 			followeeId: otherUser.id,
 		},
 	})
 
-	if (!following) return
+	if (!isFollowing) throw new Error('You are not following this user')
 
 	const follow = await db.follow.delete({
 		where: {
-			id: following.id,
+			id: isFollowing.id,
+		},
+		include: {
+			followee: true,
+			follower: true,
 		},
 	})
 
