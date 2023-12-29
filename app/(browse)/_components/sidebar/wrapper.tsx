@@ -18,7 +18,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
 	// to prevent flickering on client side
 	if (!isClient)
 		return (
-			<aside className="'fixed left-0 flex flex-col w-[70px] lg:w-60 h-full bg-background border-r border-[#2D2E35] z-35'">
+			<aside className="fixed left-0 flex flex-col w-[70px] lg:w-60 h-full bg-background border-r border-[#2D2E35] z-35">
 				<ToggleSkeleton />
 				<FollowingSkeleton />
 				<br />
