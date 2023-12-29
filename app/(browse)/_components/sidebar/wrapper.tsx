@@ -1,22 +1,18 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { useSidebar } from '@/store/useSidebar'
-import { useEffect, useState } from 'react'
 import { ToggleSkeleton } from './toggle'
 import { RecommendedSkeleton } from './recommended'
+import { useIsClient } from 'usehooks-ts'
 
 interface WrapperProps {
 	children: React.ReactNode
 }
 
 export const Wrapper = ({ children }: WrapperProps) => {
-	const [isClient, setIsClient] = useState(false)
+	const isClient = useIsClient()
 
 	const { collapsed } = useSidebar((state) => state)
-
-	useEffect(() => {
-		setIsClient(true)
-	}, [])
 
 	// to prevent flickering on client side
 	if (!isClient)
