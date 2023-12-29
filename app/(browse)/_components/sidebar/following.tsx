@@ -1,31 +1,30 @@
 'use client'
 
 import { useSidebar } from '@/store/useSidebar'
-import { User } from '@prisma/client'
+import { Follow, User } from '@prisma/client'
 import { UserItem, UserItemSkeleton } from './userItem'
 import { Skeleton } from '@/components/ui/skeleton'
 
-interface RecommendedProps {
-	data: User[]
+interface FollowingProps {
+	data: (Follow & { followee: User })[]
 }
 
-export const Recommended = ({ data }: RecommendedProps) => {
+export const Following = ({ data }: FollowingProps) => {
 	const { collapsed } = useSidebar((state) => state)
 
-	console.log(data)
+	if (!data.length) return null
 
-	const showLabel = !collapsed && data.length
 	return (
 		<div className="">
-			{showLabel && (
+			{!collapsed && (
 				<div className="pl-6 mb-4">
-					<p className="text-sm text-muted-foreground">Recommended</p>
+					<p className="text-sm text-muted-foreground">Following</p>
 				</div>
 			)}
 			<ul className="space-y-2 px-2">
-				{data.map((user) => (
-					<li key={user.id} className="">
-						<UserItem user={user} isLive={true} />
+				{data.map(({ followee }) => (
+					<li key={followee.id} className="">
+						<UserItem user={followee} />
 					</li>
 				))}
 			</ul>
@@ -33,9 +32,9 @@ export const Recommended = ({ data }: RecommendedProps) => {
 	)
 }
 
-export const RecommendedSkeleton = () => {
+export const FollowingSkeleton = () => {
 	return (
-		<div>
+		<div className="">
 			<Skeleton className="ml-6 h-4 mb-4 w-[100px] hidden lg:block" />
 			<div className="space-y-2 px-2">
 				{[...Array(3)].map((_, i) => (

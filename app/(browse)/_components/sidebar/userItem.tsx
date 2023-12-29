@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { useSidebar } from '@/store/useSidebar'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { UserAvatar } from '@/components/app/userAvatar'
+import { UserAvatar, UserAvatarSkeleton } from '@/components/app/userAvatar'
 import { LiveBadge } from '@/components/app/liveBadge'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -51,7 +51,7 @@ export const UserItem = ({ user, isLive }: UserItemProps) => {
 export const UserItemSkeleton = () => {
 	return (
 		<li className="flex items-center w-full gap-x-4 px-3 py-2">
-			<Skeleton className="min-h-[32px] min-w-[32px] rounded-full" />
+			<UserAvatarSkeleton size="sm" />
 			<div className="flex-1">
 				<Skeleton className="h-6" />
 			</div>

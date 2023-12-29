@@ -1,7 +1,7 @@
 import { db } from '@/lib/db'
 import { getSelf } from '@/lib/authService'
 
-export const getRecommended = async () => {
+export const getRecommended = async (page = 1, pageSize = 10) => {
 	let userId: string | null = null
 	try {
 		const self = await getSelf()
@@ -14,18 +14,33 @@ export const getRecommended = async () => {
 		? // Find all users except the current user
 		  await db.user.findMany({
 				where: {
-					id: {
-						not: userId,
-					},
+					AND: [
+						{
+							NOT: {
+								id: userId,
+							},
+						},
+						{
+							NOT: {
+								followedBy: {
+									some: {
+										followerId: userId,
+									},
+								},
+							},
+						},
+					],
 				},
-				take: 10, // Limit the result to 10
+				take: pageSize,
+				skip: (page - 1) * pageSize,
 		  })
 		: // Find all users
 		  await db.user.findMany({
 				orderBy: {
 					createdAt: 'desc',
 				},
-				take: 10,
+				take: pageSize,
+				skip: (page - 1) * pageSize,
 		  })
 
 	return users

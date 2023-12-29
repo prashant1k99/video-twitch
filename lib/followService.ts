@@ -1,6 +1,29 @@
 import { db } from '@/lib/db'
 import { getSelf } from '@/lib/authService'
 
+export const getFollowedUsers = async (page = 1, pageSize = 10) => {
+	try {
+		const self = await getSelf()
+
+		if (!self) return []
+
+		const followedUsers = await db.follow.findMany({
+			where: {
+				followerId: self?.id,
+			},
+			include: {
+				followee: true,
+			},
+			take: pageSize,
+			skip: (page - 1) * pageSize,
+		})
+
+		return followedUsers
+	} catch (err) {
+		return []
+	}
+}
+
 export const isFollowingUser = async (id: string) => {
 	try {
 		const self = await getSelf()
