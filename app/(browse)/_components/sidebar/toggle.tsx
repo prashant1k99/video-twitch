@@ -1,12 +1,12 @@
 'use client'
 
-import { Hint } from '@/components/hint'
+import { Hint } from '@/components/app/hint'
 import { Button } from '@/components/ui/button'
 import { useSidebar } from '@/store/useSidebar'
 import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-react'
 
 export const Toggle = () => {
-	const { collapsed, onCollapse, onExpand } = useSidebar()
+	const { collapsed, onCollapse, onExpand } = useSidebar((state) => state)
 
 	const label = collapsed ? 'Expand' : 'Collapse'
 	const action = collapsed ? onExpand : onCollapse
