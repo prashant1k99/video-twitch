@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Fullscreen, KeyRound, MessageSquare, Users } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { NavItem } from './navItem'
+import { NavItem, NavItemSkeleton } from './navItem'
 
 const Navigation = () => {
 	const pathname = usePathname()
@@ -33,6 +33,16 @@ const Navigation = () => {
 			icon: Users,
 		},
 	]
+
+	if (!user?.username) {
+		return (
+			<ul className="">
+				{[...Array(4)].map((_, i) => (
+					<NavItemSkeleton key={i} />
+				))}
+			</ul>
+		)
+	}
 
 	return (
 		<ul className="">
