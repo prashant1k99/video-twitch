@@ -42,11 +42,28 @@ export const getRecommended = async (page = 1, pageSize = 10) => {
 				},
 				take: pageSize,
 				skip: (page - 1) * pageSize,
+				include: {
+					stream: {
+						select: {
+							isLive: true,
+						},
+					},
+				},
+				orderBy: {
+					createdAt: 'desc',
+				},
 		  })
 		: // Find all users
 		  await db.user.findMany({
 				orderBy: {
 					createdAt: 'desc',
+				},
+				include: {
+					stream: {
+						select: {
+							isLive: true,
+						},
+					},
 				},
 				take: pageSize,
 				skip: (page - 1) * pageSize,

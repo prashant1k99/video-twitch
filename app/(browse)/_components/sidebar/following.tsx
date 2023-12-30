@@ -6,7 +6,13 @@ import { UserItem, UserItemSkeleton } from './userItem'
 import { Skeleton } from '@/components/ui/skeleton'
 
 interface FollowingProps {
-	data: (Follow & { followee: User })[]
+	data: (Follow & {
+		followee: User & {
+			stream: {
+				isLive: boolean
+			} | null
+		}
+	})[]
 }
 
 export const Following = ({ data }: FollowingProps) => {
@@ -24,7 +30,7 @@ export const Following = ({ data }: FollowingProps) => {
 			<ul className="space-y-2 px-2">
 				{data.map(({ followee }) => (
 					<li key={followee.id} className="">
-						<UserItem user={followee} />
+						<UserItem user={followee} isLive={followee.stream?.isLive} />
 					</li>
 				))}
 			</ul>

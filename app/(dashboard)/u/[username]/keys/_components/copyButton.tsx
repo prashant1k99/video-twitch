@@ -11,7 +11,7 @@ interface CopyButtonProps {
 export const CopyButton = ({ value }: CopyButtonProps) => {
 	const [isCopied, setIsCopied] = useState(false)
 
-	const copyToClipboard = () => {
+	const copyToClipboard = async () => {
 		if (!value) return
 
 		setIsCopied(true)

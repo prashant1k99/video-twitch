@@ -19,7 +19,15 @@ export const getFollowedUsers = async (page = 1, pageSize = 10) => {
 				},
 			},
 			include: {
-				followee: true,
+				followee: {
+					include: {
+						stream: {
+							select: {
+								isLive: true,
+							},
+						},
+					},
+				},
 			},
 			take: pageSize,
 			skip: (page - 1) * pageSize,
