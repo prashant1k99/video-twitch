@@ -59,6 +59,11 @@ export async function POST(req: Request) {
 					id: id as string,
 					username: payload.data.username,
 					imageUrl: payload.data.image_url,
+					stream: {
+						create: {
+							name: `${payload.data.username}'s stream`,
+						},
+					},
 					createdAt: new Date(payload.data.created_at),
 					updatedAt: new Date(payload.data.updated_at),
 				},
@@ -73,6 +78,11 @@ export async function POST(req: Request) {
 					username: payload.data.username,
 					imageUrl: payload.data.image_url,
 					updatedAt: new Date(payload.data.updated_at),
+					stream: {
+						update: {
+							name: `${payload.data.username}'s stream`,
+						},
+					},
 				},
 			})
 			break

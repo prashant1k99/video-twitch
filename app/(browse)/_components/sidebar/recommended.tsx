@@ -14,7 +14,7 @@ export const Recommended = ({ data }: RecommendedProps) => {
 
 	console.log(data)
 
-	const showLabel = !collapsed && data.length
+	const showLabel = !collapsed && data.length > 0
 	return (
 		<div className="">
 			{showLabel && (
