@@ -3,7 +3,7 @@ import { db } from '@/lib/db'
 
 export const getSelf = async () => {
 	const user = await currentUser()
-	if (!user || !user.username) return null
+	if (!user || !user.username) throw new Error('Authentication required')
 
 	const self = await db.user.findUnique({
 		where: {

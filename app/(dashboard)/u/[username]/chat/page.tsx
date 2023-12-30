@@ -4,9 +4,6 @@ import { ToggleCard } from './_components/toggleCard'
 
 const ChatPage = async () => {
 	const self = await getSelf()
-	if (!self) {
-		return <div>Not logged in</div>
-	}
 	const stream = await getStreamByUserId(self.id)
 
 	if (!stream) {
