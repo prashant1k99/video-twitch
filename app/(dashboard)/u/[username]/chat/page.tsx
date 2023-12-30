@@ -18,12 +18,23 @@ const ChatPage = async () => {
 			<div className="mb-4">
 				<h1 className="text-2xl font-bold">Chat Settings</h1>
 			</div>
-			{/* {JSON.stringify(stream, null, 2)} */}
 			<div className="space-y-4">
 				<ToggleCard
 					field="isChatEnabled"
 					label="Enable chat"
 					value={stream.isChatEnabled}
+				/>
+				<ToggleCard
+					isDisabled={!stream.isChatEnabled}
+					field="isChatDelayed"
+					label="Delay chat"
+					value={stream.isChatDelayed}
+				/>
+				<ToggleCard
+					isDisabled={!stream.isChatEnabled}
+					field="isChatFollowersOnly"
+					label="Enable chat"
+					value={stream.isChatFollowersOnly}
 				/>
 			</div>
 		</div>
