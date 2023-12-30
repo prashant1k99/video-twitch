@@ -37,8 +37,8 @@ const ConnectModal = () => {
 		startTransition(() => {
 			createIngress(parseInt(ingressType))
 				.then(() => {
+					console.log('IsPending: ', isPending)
 					toast.success('Ingress created')
-					console.log(closeRef.current)
 					closeRef.current?.click()
 				})
 				.catch((err) => {
@@ -77,7 +77,7 @@ const ConnectModal = () => {
 				</Alert>
 				<div className="flex justify-between w-full space-x-2">
 					<DialogClose ref={closeRef} asChild>
-						<Button disabled={isPending} className="w-full" variant="ghost">
+						<Button className="w-full" variant="ghost">
 							Cancel
 						</Button>
 					</DialogClose>
