@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 			break
 
 		default:
-			console.log('Received event [Unhandled]', event)
+			console.log(`Received event [Unhandled]: ${event.event}`)
 			break
 	}
 

@@ -20,33 +20,21 @@ const roomService = new RoomServiceClient(
 	process.env.LIVEKIT_API_SECRET
 )
 
-const ingressClient = new IngressClient(
-	process.env.LIVEKIT_API_URL!,
-	process.env.LIVEKIT_API_KEY,
-	process.env.LIVEKIT_API_SECRET
-)
+const ingressClient = new IngressClient(process.env.LIVEKIT_API_URL!)
 
 export const resetIngress = async (hostIdentity: string) => {
 	const ingresses = await ingressClient.listIngress({
 		roomName: hostIdentity,
 	})
 
-	if (!ingresses || ingresses.length === 0) {
-		return
+	const rooms = await roomService.listRooms([hostIdentity])
+
+	for (const room of rooms) {
+		await roomService.deleteRoom(room.name)
 	}
 
 	for (const ingress of ingresses) {
 		if (ingress.ingressId) await ingressClient.deleteIngress(ingress.ingressId)
-	}
-
-	const rooms = await roomService.listRooms([hostIdentity])
-
-	if (!rooms || rooms.length === 0) {
-		return
-	}
-
-	for (const room of rooms) {
-		await roomService.deleteRoom(room.name)
 	}
 }
 

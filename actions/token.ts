@@ -45,8 +45,8 @@ export const createViewerToken = async (hostIdentity: string) => {
 	)
 
 	token.addGrant({
-		roomJoin: true,
 		room: host.id,
+		roomJoin: true,
 		canPublish: false,
 		canPublishData: false,
 	})
