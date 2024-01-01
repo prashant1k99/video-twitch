@@ -22,7 +22,11 @@ export default function RootLayout({
 	return (
 		<ClerkProvider appearance={{ baseTheme: dark }}>
 			<html lang="en">
-				<body className={cn(inter.className, 'w-screen h-screen')}>
+				<body
+					className={cn(
+						inter.className,
+						'w-screen h-screen overflow-x-hidden'
+					)}>
 					<ThemeProvider
 						attribute="class"
 						forcedTheme="dark"
