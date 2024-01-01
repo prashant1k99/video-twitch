@@ -9,6 +9,7 @@ import { Video, VideoSkeleton } from './video'
 import { Chat, ChatSkeleton } from '../chat'
 import { ChatToggle } from '../chat/chatToggle'
 import { Header, HeaderSkeleton } from './header'
+import { InfoCard } from './infocard'
 interface StreamPlayerProps {
 	user: User
 	stream: Stream
@@ -50,6 +51,12 @@ export const StreamPlayer = ({
 						imageUrl={user.imageUrl}
 						isFollowing={isFollowing}
 						name={stream.name}
+					/>
+					<InfoCard
+						hostIdentity={user.id}
+						name={stream.name}
+						thumbnailUrl={stream.thumbnailUrl}
+						viewerIdentity={identity}
 					/>
 				</div>
 				<div className={cn('col-span-1', collapsed && 'hidden')}>
