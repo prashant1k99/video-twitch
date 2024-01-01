@@ -4,9 +4,11 @@ import {
 	useParticipants,
 	useRemoteParticipant,
 } from '@livekit/components-react'
-import { UserAvatar } from '../userAvatar'
+import { UserAvatar, UserAvatarSkeleton } from '../userAvatar'
 import { VerifiedMark } from './verifiedMark'
 import { UserIcon } from 'lucide-react'
+import { Actions, ActionsSkeleton } from './actions'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface HeaderProps {
 	imageUrl: string
@@ -65,6 +67,26 @@ export const Header = ({
 					)}
 				</div>
 			</div>
+			<Actions
+				isFollowing={isFollowing}
+				hostIdentity={hostIdentity}
+				isHost={isHost}
+			/>
+		</div>
+	)
+}
+
+export const HeaderSkeleton = () => {
+	return (
+		<div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4">
+			<div className="flex items-center gap-x-2">
+				<UserAvatarSkeleton size="lg" />
+				<div className="space-y-2">
+					<Skeleton className="w-32 h-6" />
+					<Skeleton className="h-4 w-24" />
+				</div>
+			</div>
+			<ActionsSkeleton />
 		</div>
 	)
 }
