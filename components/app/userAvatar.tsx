@@ -19,13 +19,15 @@ const AvatarVariants = cva('', {
 })
 
 export interface UserAvatarProps extends VariantProps<typeof AvatarVariants> {
-	user: User
+	username: string
+	imageUrl: string
 	showBadge?: boolean
 	isLive?: boolean
 }
 
 export const UserAvatar = ({
-	user,
+	username,
+	imageUrl,
 	isLive,
 	showBadge,
 	size,
@@ -40,12 +42,14 @@ export const UserAvatar = ({
 					isLive &&
 						'ring-2 ring-offset-2 ring-offset-background ring-rose-500 border-background'
 				)}>
-				<AvatarImage src={user.imageUrl} className="object-cover" />
+				<AvatarImage src={imageUrl} className="object-cover" />
 				<AvatarFallback>
-					<AvatarImage
+					{username[0]}
+					{username[username.length - 1]}
+					{/* <AvatarImage
 						src="https://avatars.githubusercontent.com/u/11742736?v=4"
 						className="object-cover"
-					/>
+					/> */}
 				</AvatarFallback>
 			</Avatar>
 			{canShowBadge && (

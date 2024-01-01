@@ -37,7 +37,13 @@ export const UserItem = ({ user, isLive }: UserItemProps) => {
 						'flex items-center w-full gap-x-4',
 						collapsed && 'justify-center bg-transparent'
 					)}>
-					<UserAvatar size="sm" user={user} isLive={isLive} showBadge={false} />
+					<UserAvatar
+						size="sm"
+						username={user.username}
+						imageUrl={user.imageUrl}
+						isLive={isLive}
+						showBadge={false}
+					/>
 					{!collapsed && (
 						<p className="truncate text-sm font-medium">{user.username}</p>
 					)}

@@ -8,8 +8,7 @@ import { cn } from '@/lib/utils'
 import { Video, VideoSkeleton } from './video'
 import { Chat, ChatSkeleton } from '../chat'
 import { ChatToggle } from '../chat/chatToggle'
-import { ChatHeaderSkeleton } from '../chat/chatHeader'
-
+import { Header } from './header'
 interface StreamPlayerProps {
 	user: User
 	stream: Stream
@@ -44,6 +43,14 @@ export const StreamPlayer = ({
 				)}>
 				<div className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-3 3xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
 					<Video hostName={user.username} hostIdentity={user.id} />
+					<Header
+						hostName={user.username}
+						hostIdentity={user.id}
+						viewerIdentity={identity}
+						imageUrl={user.imageUrl}
+						isFollowing={isFollowing}
+						name={stream.name}
+					/>
 				</div>
 				<div className={cn('col-span-1', collapsed && 'hidden')}>
 					<Chat
