@@ -39,7 +39,7 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
 
 export const VideoSkeleton = () => {
 	return (
-		<div className="aspec-video border-x border-background">
+		<div className="aspect-video border-x border-background">
 			<Skeleton className="w-full h-full rounded-none" />
 		</div>
 	)
