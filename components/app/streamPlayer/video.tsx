@@ -14,9 +14,10 @@ import { Skeleton } from '@/components/ui/skeleton'
 interface VideoProps {
 	hostName: string
 	hostIdentity: string
+	thumbnailUrl: string | null
 }
 
-export const Video = ({ hostName, hostIdentity }: VideoProps) => {
+export const Video = ({ hostName, hostIdentity, thumbnailUrl }: VideoProps) => {
 	const connectionState = useConnectionState()
 	const participant = useRemoteParticipant(hostIdentity)
 	const tracks = useTracks([
@@ -31,7 +32,9 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
 	} else if (!participant || tracks.length === 0) {
 		content = <LoadingVideo label={connectionState} />
 	} else {
-		content = <LiveVideo participant={participant} />
+		content = (
+			<LiveVideo thumbnailUrl={thumbnailUrl} participant={participant} />
+		)
 	}
 
 	return <div className="aspect-video border-b group relative">{content}</div>

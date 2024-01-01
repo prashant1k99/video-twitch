@@ -9,7 +9,7 @@ import { Video, VideoSkeleton } from './video'
 import { Chat, ChatSkeleton } from '../chat'
 import { ChatToggle } from '../chat/chatToggle'
 import { Header, HeaderSkeleton } from './header'
-import { InfoCard } from './infocard'
+import { InfoCard } from './infoCard'
 interface StreamPlayerProps {
 	user: User
 	stream: Stream
@@ -43,7 +43,11 @@ export const StreamPlayer = ({
 					collapsed && 'lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2'
 				)}>
 				<div className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-3 3xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
-					<Video hostName={user.username} hostIdentity={user.id} />
+					<Video
+						hostName={user.username}
+						hostIdentity={user.id}
+						thumbnailUrl={stream.thumbnailUrl}
+					/>
 					<Header
 						hostName={user.username}
 						hostIdentity={user.id}
