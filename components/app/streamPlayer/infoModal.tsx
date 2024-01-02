@@ -15,6 +15,9 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Hint } from '../hint'
+import { Trash } from 'lucide-react'
+import Image from 'next/image'
 
 interface InfoModalProps {
 	initialThumbnailUrl: string | null
@@ -34,6 +37,12 @@ export const InfoModal = ({
 
 	const modalCloseButtonRef = useRef<HTMLButtonElement>(null)
 
+	const closeModal = () => {
+		if (modalCloseButtonRef.current) {
+			modalCloseButtonRef.current.click()
+		}
+	}
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		e.stopPropagation()
@@ -41,11 +50,26 @@ export const InfoModal = ({
 		startTransition(() => {
 			updateStream({
 				name,
-				// thumbnailUrl: initialThumbnailUrl,
 			})
 				.then(() => {
 					toast.success('Stream updated!')
-					modalCloseButtonRef.current?.click()
+					closeModal()
+				})
+				.catch((err) => {
+					toast.error(err.message)
+				})
+		})
+	}
+
+	const handleRemoveThumbnail = () => {
+		startTransition(() => {
+			updateStream({
+				thumbnailUrl: null,
+			})
+				.then(() => {
+					toast.success('Thumbnail removed!')
+					setThumbnailUrl(null)
+					closeModal()
 				})
 				.catch((err) => {
 					toast.error(err.message)
@@ -74,23 +98,47 @@ export const InfoModal = ({
 					</div>
 					<div className="space-y-2">
 						<Label>Thumbnail</Label>
-						<div className="rounded-xl border outline-dashed outline-muted">
-							<UploadDropzone
-								endpoint="thumbnailUploader"
-								appearance={{
-									label: {
-										color: '#fff',
-									},
-									allowedContent: {
-										color: '#fff',
-									},
-								}}
-								onClientUploadComplete={(res) => {
-									setThumbnailUrl(res[0].url)
-									router.refresh()
-								}}
-							/>
-						</div>
+						{thumbnailUrl ? (
+							<div className="relative aspect-video rounded-xl overflow-hidden border border-white/10">
+								<div className="absolute top-2 right-2 z-10">
+									<Hint label="Remove Thumbnail" asChild side="left">
+										<Button
+											type="button"
+											disabled={isPending}
+											onClick={handleRemoveThumbnail}
+											className="h-auto w-auto p-1.5">
+											<Trash className="w-4 h-4 text-muted-foreground" />
+										</Button>
+									</Hint>
+								</div>
+								<Image
+									src={thumbnailUrl}
+									layout="fill"
+									objectFit="cover"
+									alt={name}
+									fill
+								/>
+							</div>
+						) : (
+							<div className="rounded-xl border outline-dashed outline-muted">
+								<UploadDropzone
+									endpoint="thumbnailUploader"
+									appearance={{
+										label: {
+											color: '#fff',
+										},
+										allowedContent: {
+											color: '#fff',
+										},
+									}}
+									onClientUploadComplete={(res) => {
+										setThumbnailUrl(res[0].url)
+										router.refresh()
+										closeModal()
+									}}
+								/>
+							</div>
+						)}
 					</div>
 					<div className="flex justify-between">
 						<DialogClose ref={modalCloseButtonRef} asChild>
