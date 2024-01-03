@@ -6,7 +6,7 @@ import {
 	useConnectionState,
 	useRemoteParticipant,
 } from '@livekit/components-react'
-import { ConnectionState, Track } from 'livekit-client'
+import { ConnectionState } from 'livekit-client'
 import { useEffect, useMemo, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 import { ChatHeader, ChatHeaderSkeleton } from './chatHeader'
@@ -52,14 +52,19 @@ export const Chat = ({
 		}
 	}, [matches, onExpand])
 
+	useEffect(() => {
+		console.log('Messages:', messages) // log the messages
+	}, [messages])
+
 	const reversedMessages = useMemo(() => {
 		return messages.sort((a, b) => b.timestamp - a.timestamp)
 	}, [messages])
 
-	const onSubmit = () => {
+	const onSubmit = async () => {
 		if (!send) return
+		console.log(send) // log the send function
 
-		send(value)
+		await send(value)
 		setValue('')
 	}
 

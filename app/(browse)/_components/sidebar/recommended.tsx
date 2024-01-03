@@ -27,11 +27,14 @@ export const Recommended = ({ data }: RecommendedProps) => {
 				</div>
 			)}
 			<ul className="space-y-2 px-2">
-				{data.map((user) => (
-					<li key={user.id} className="">
-						<UserItem user={user} isLive={user.stream?.isLive} />
-					</li>
-				))}
+				{data.map((user) => {
+					console.log(`${user.username} isLive: `, user.stream?.isLive)
+					return (
+						<li key={user.id} className="">
+							<UserItem user={user} isLive={user.stream?.isLive} />
+						</li>
+					)
+				})}
 			</ul>
 		</div>
 	)

@@ -1,10 +1,10 @@
 'use client'
 
-import { useViewerToken } from '@/hooks/useViewerToken'
-import { useChatSidebar } from '@/store/useChatSidebar'
 import { Stream, User } from '@prisma/client'
 import { LiveKitRoom } from '@livekit/components-react'
 import { cn } from '@/lib/utils'
+import { useViewerToken } from '@/hooks/useViewerToken'
+import { useChatSidebar } from '@/store/useChatSidebar'
 import { Video, VideoSkeleton } from './video'
 import { Chat, ChatSkeleton } from '../chat'
 import { ChatToggle } from '../chat/chatToggle'
