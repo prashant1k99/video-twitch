@@ -1,6 +1,5 @@
 'use client'
 
-import { Stream, User } from '@prisma/client'
 import { LiveKitRoom } from '@livekit/components-react'
 import { cn } from '@/lib/utils'
 import { useViewerToken } from '@/hooks/useViewerToken'
@@ -9,7 +8,7 @@ import { Video, VideoSkeleton } from './video'
 import { Chat, ChatSkeleton } from '../chat'
 import { ChatToggle } from '../chat/chatToggle'
 import { Header, HeaderSkeleton } from './header'
-import { InfoCard } from './infoCard'
+import { InfoCard } from './info-card'
 import { AboutCard } from './aboutCard'
 
 type CustomStream = {
