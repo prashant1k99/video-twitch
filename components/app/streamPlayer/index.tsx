@@ -11,14 +11,31 @@ import { ChatToggle } from '../chat/chatToggle'
 import { Header, HeaderSkeleton } from './header'
 import { InfoCard } from './infoCard'
 import { AboutCard } from './aboutCard'
-interface StreamPlayerProps {
-	user: User & {
-		stream: Stream | null
-		_count: {
-			followedBy: number
-		}
+
+type CustomStream = {
+	isChatEnabled: boolean
+	isChatDelayed: boolean
+	isChatFollowersOnly: boolean
+	id: string
+	isLive: boolean
+	thumbnailUrl: string | null
+	name: string
+}
+
+type CustomUser = {
+	id: string
+	username: string
+	imageUrl: string
+	bio: string | null
+	stream: CustomStream | null
+	_count: {
+		followedBy: number
 	}
-	stream: Stream
+}
+
+interface StreamPlayerProps {
+	user: CustomUser
+	stream: CustomStream
 	isFollowing: boolean
 }
 

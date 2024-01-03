@@ -43,8 +43,12 @@ export const getStream = async () => {
 					updatedAt: 'desc',
 				},
 			],
-			include: {
+			select: {
+				id: true,
 				user: true,
+				thumbnailUrl: true,
+				isLive: true,
+				name: true,
 			},
 		})
 	} else {
@@ -57,8 +61,12 @@ export const getStream = async () => {
 					updatedAt: 'desc',
 				},
 			],
-			include: {
+			select: {
+				id: true,
 				user: true,
+				thumbnailUrl: true,
+				isLive: true,
+				name: true,
 			},
 		})
 	}
